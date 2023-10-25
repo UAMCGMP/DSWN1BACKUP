@@ -2,7 +2,7 @@
 Trabalho para Desenvolvimento de Software para Web.
 
 
-Integrantes
+Integrantes:
 
 - Camila Caetano - 125111344135
 - Gabriel Steffen - 125111353992
