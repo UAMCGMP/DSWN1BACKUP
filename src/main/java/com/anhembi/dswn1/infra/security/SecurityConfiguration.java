@@ -22,7 +22,7 @@ public class SecurityConfiguration {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/auth/resgister").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
                         .requestMatchers(HttpMethod.PUT, "/pets").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.POST, "/pets").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/pets").hasRole("ADMIN")
