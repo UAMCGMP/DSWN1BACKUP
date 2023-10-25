@@ -3,6 +3,7 @@ package com.anhembi.dswn1.controller;
 import com.anhembi.dswn1.domain.pet.Pet;
 import com.anhembi.dswn1.domain.pet.PetDTO;
 import com.anhembi.dswn1.repository.PetRepository;
+import jakarta.transaction.Transactional;
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -35,13 +36,28 @@ public class PetController {
     }
 
     @PutMapping
-    public void editPetInfo(){
-
+    @Transactional
+    public ResponseEntity updatePetInfo( @RequestBody PetDTO petDTO){
+        var optionalPet = repository.findById(petDTO.id());
+        if(optionalPet.isPresent()){
+            Pet pet = optionalPet.get();
+            pet.setName(petDTO.name());
+            pet.setBio(petDTO.bio());
+            repository.save(pet);
+            return ResponseEntity.ok(pet);
+        }else {
+            return ResponseEntity.notFound().build();
+        }
     }
-
-    @DeleteMapping
-    public void excludePet(){
-
+    @DeleteMapping("/{id}")
+    public ResponseEntity excludePet(@PathVariable String id){
+        var pet = repository.findById(id);
+        if (pet.isPresent()){
+            repository.delete(pet.get());
+            return ResponseEntity.ok().build();
+        }else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
 }
