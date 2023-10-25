@@ -1,5 +1,7 @@
 package com.anhembi.dswn1.controller;
 
+import com.anhembi.dswn1.domain.pet.Pet;
+import com.anhembi.dswn1.domain.pet.PetDTO;
 import com.anhembi.dswn1.repository.PetRepository;
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +27,11 @@ public class PetController {
     }
 
     @PostMapping
-    public void postPet(){
-
+    public ResponseEntity registerPet(@RequestBody PetDTO petDTO){
+        Pet pet = new Pet(petDTO);
+        System.out.println(petDTO);
+        repository.save(pet);
+        return ResponseEntity.ok().build();
     }
 
     @PutMapping
