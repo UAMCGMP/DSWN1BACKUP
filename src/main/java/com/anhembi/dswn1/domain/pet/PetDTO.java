@@ -1,6 +1,4 @@
 package com.anhembi.dswn1.domain.pet;
 
-import jakarta.persistence.Id;
-
-public record PetDTO(String id, String name, String bio) {
+public record PetDTO(String id, String name,Integer age, String size, Double weight, String bio, String gender, String vaccinated, String castration) {
 }

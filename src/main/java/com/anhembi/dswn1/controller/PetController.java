@@ -4,7 +4,6 @@ import com.anhembi.dswn1.domain.pet.Pet;
 import com.anhembi.dswn1.domain.pet.PetDTO;
 import com.anhembi.dswn1.repository.PetRepository;
 import jakarta.transaction.Transactional;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,15 +14,22 @@ public class PetController {
     @Autowired
     private PetRepository repository;
 
-    /*@GetMapping("/{id}")
-    public ResponseEntity getPetById(){
-        var allPets = repository.findAll();
-        return ResponseEntity.ok(allPets);
-    }*/
+    @GetMapping("/{id}")
+    public ResponseEntity getPetById(@PathVariable String id){
+        var pets = repository.findById(id);
+        if (pets.isPresent()){
+            return ResponseEntity.ok(pets);
+        }else{
+            return ResponseEntity.notFound().build();
+        }
+    }
 
     @GetMapping
     public ResponseEntity getAllPets(){
         var allPets = repository.findAll();
+        if(allPets.isEmpty()){
+            return ResponseEntity.notFound().build();
+        }
         return ResponseEntity.ok(allPets);
     }
 
