@@ -1,9 +1,6 @@
 package com.anhembi.dswn1.controller;
 
-import com.anhembi.dswn1.domain.user.AuthenticationDTO;
-import com.anhembi.dswn1.domain.user.LoginResponseDTO;
-import com.anhembi.dswn1.domain.user.RegisterDTO;
-import com.anhembi.dswn1.domain.user.User;
+import com.anhembi.dswn1.domain.user.*;
 import com.anhembi.dswn1.infra.security.TokenService;
 import com.anhembi.dswn1.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,19 +8,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
 public class AuthenticationController {
-
     @Autowired
     private AuthenticationManager authenticationManager;
-
     @Autowired
     private UserRepository userRepository;
-
     @Autowired
     private TokenService tokenService;
 
@@ -42,7 +35,7 @@ public class AuthenticationController {
         if (this.userRepository.findByLogin(data.login()) != null) return ResponseEntity.badRequest().build();
 
         String encryptedPassword = new BCryptPasswordEncoder().encode(data.password());
-        User newUser = new User(data.login(), encryptedPassword, data.role());
+        User newUser = new User(data.login(), encryptedPassword, UserRole.ADMIN);
 
         userRepository.save(newUser);
 
