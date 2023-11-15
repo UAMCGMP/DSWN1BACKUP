@@ -1,7 +1,6 @@
 package com.anhembi.dswn1.infra.security;
 
 import com.anhembi.dswn1.repository.UserRepository;
-import com.auth0.jwt.JWT;
 import io.jsonwebtoken.Jwts;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
