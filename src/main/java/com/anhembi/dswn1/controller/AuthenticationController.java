@@ -29,13 +29,26 @@ public class AuthenticationController {
         return ResponseEntity.ok(new LoginResponseDTO(token));
     }
 
-    @PostMapping("/register")
+    @PostMapping("/register/adm")
     public ResponseEntity register(@RequestBody RegisterDTO data){
 
         if (this.userRepository.findByLogin(data.login()) != null) return ResponseEntity.badRequest().build();
 
         String encryptedPassword = new BCryptPasswordEncoder().encode(data.password());
         User newUser = new User(data.login(), encryptedPassword, UserRole.ADMIN);
+
+        userRepository.save(newUser);
+
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/register/user")
+    public ResponseEntity registerUser(@RequestBody RegisterDTO data){
+
+        if (this.userRepository.findByLogin(data.login()) != null) return ResponseEntity.badRequest().build();
+
+        String encryptedPassword = new BCryptPasswordEncoder().encode(data.password());
+        User newUser = new User(data.login(), encryptedPassword, UserRole.USER);
 
         userRepository.save(newUser);
 
