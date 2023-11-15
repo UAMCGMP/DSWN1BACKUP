@@ -23,5 +23,11 @@ public class Pet {
     private String gender;
     private String vaccinated;
     private String castration;
+    private String photourl;
+
+    public Pet(PetDTO petDTO){
+        this.name = petDTO.name();
+        this.bio = petDTO.bio();
+    }
 
 }
