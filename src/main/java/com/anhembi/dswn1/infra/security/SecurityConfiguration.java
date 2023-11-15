@@ -29,7 +29,7 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.POST, "/auth/register/adm").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/register/user").permitAll()
                         .requestMatchers(HttpMethod.GET, "/pets").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/adoptionApplication").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/adoptionApplication").hasAuthority("USER")
                         .requestMatchers(HttpMethod.PUT, "/pets").hasAuthority("ADMIN")
                         .requestMatchers(HttpMethod.POST, "/pets").hasAuthority("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/pets").hasAuthority("ADMIN")
