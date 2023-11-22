@@ -1,5 +1,6 @@
 # DSWN1
 Trabalho para Desenvolvimento de Software para Web.
+
 Esse repositório contem o Micro Serviço responsavel por fazer as operações simples de um CRUD para um site de adoção de pets
 
 ## Conteúdo
@@ -45,3 +46,14 @@ DELETE / - Deleta um pet do banco.
 O projeto utiliza PostgresSQL como banco de dados. As migrations utilizadas estão sendo gerenciadas com Flyway.
 
 Para [instalar PostgresSQL](https://www.postgresql.org/download/).
+=======
+
+
+Integrantes:
+
+- Camila Caetano - 125111344135
+- Gabriel Steffen - 125111353992
+- Filipe Anestidis - 125111363103
+- Mateus Timm - 125111369651
+- Paulo Converso - 125111373916
+
