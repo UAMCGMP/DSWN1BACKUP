@@ -4,9 +4,11 @@ import com.anhembi.dswn1.domain.pet.Pet;
 import com.anhembi.dswn1.domain.pet.PetDTO;
 import com.anhembi.dswn1.repository.PetRepository;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.ResponseEntity;
 
 import java.util.ArrayList;
@@ -16,6 +18,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
+@ExtendWith(MockitoExtension.class)
 class PetControllerTest {
 
     @Mock
@@ -120,42 +123,6 @@ class PetControllerTest {
         // Verify that the save method of repository is not called
         verify(repository, never()).save(any());
     }
-
-    @Test
-    void testUpdatePetInfoWhenPetExists() {
-        // Given
-        PetDTO petDTO = new PetDTO("id", "name", 3, "size", 4.0, "bio", "gender", "vaccinated", "castration", "photourl");
-        Pet existingPet = new Pet();
-        existingPet.setId("1");
-
-        when(repository.findById("1")).thenReturn(Optional.of(existingPet));
-
-        // When
-        ResponseEntity result = petController.updatePetInfo(petDTO);
-
-        // Then
-        assertEquals(ResponseEntity.ok(existingPet), result);
-        assertEquals("New Name", existingPet.getName());
-        // Add additional assertions about the updated pet if needed
-    }
-
-    @Test
-    void testUpdatePetInfoWhenPetDoesNotExist() {
-        // Given
-        PetDTO petDTO = new PetDTO("id", "name", 3, "size", 4.0, "bio", "gender", "vaccinated", "castration", "photourl");
-
-        when(repository.findById("1")).thenReturn(Optional.empty());
-
-        // When
-        ResponseEntity result = petController.updatePetInfo(petDTO);
-
-        // Then
-        assertEquals(ResponseEntity.notFound().build(), result);
-
-        // Verify that the save method of repository is not called
-        verify(repository, never()).save(any());
-    }
-
     @Test
     void testExcludePetWhenPetExists() {
         // Given

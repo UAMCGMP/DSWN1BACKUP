@@ -4,15 +4,18 @@ import com.anhembi.dswn1.domain.userApplication.UserAdoptionApplication;
 import com.anhembi.dswn1.domain.userApplication.UserAdoptionApplicationDTO;
 import com.anhembi.dswn1.repository.UserAdoptionApplicationRepository;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.ResponseEntity;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.verify;
 
 
+@ExtendWith(MockitoExtension.class)
 public class AdoptionApplicationControllerTest {
     @Mock
     private UserAdoptionApplicationRepository userAdoptionApplicationRepository;
@@ -37,7 +40,7 @@ public class AdoptionApplicationControllerTest {
         assertEquals("test@example.com", savedApplication.getEmailUsuario());
         assertEquals("Test User", savedApplication.getNomeUsuario());
         assertEquals("123456789", savedApplication.getTelefoneUsuario());
-        assertEquals(1L, savedApplication.getIdPet());
+        assertEquals("1", savedApplication.getIdPet());
         assertEquals("Pet Name", savedApplication.getNomeDoPet());
     }
 }

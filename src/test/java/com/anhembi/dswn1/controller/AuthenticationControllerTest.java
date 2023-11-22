@@ -1,16 +1,15 @@
 package com.anhembi.dswn1.controller;
 
 
-import com.anhembi.dswn1.domain.user.AuthenticationDTO;
-import com.anhembi.dswn1.domain.user.RegisterDTO;
-import com.anhembi.dswn1.domain.user.User;
-import com.anhembi.dswn1.domain.user.UserRole;
+import com.anhembi.dswn1.domain.user.*;
 import com.anhembi.dswn1.infra.security.TokenService;
 import com.anhembi.dswn1.repository.UserRepository;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -20,6 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
+@ExtendWith(MockitoExtension.class)
 class AuthenticationControllerTest {
 
     @Mock
@@ -40,15 +40,17 @@ class AuthenticationControllerTest {
         AuthenticationDTO testData = new AuthenticationDTO("testUser","password" );
         User user = new User("testUser", "encryptedPassword", UserRole.USER);
 
+        LoginResponseDTO loginResponseDTO = new LoginResponseDTO("generatedToken");
+
         when(authenticationManager.authenticate(any()))
                 .thenReturn(new UsernamePasswordAuthenticationToken(user, "encryptedPassword"));
-        when(tokenService.generateToken(user)).thenReturn("generatedToken");
+        when(tokenService.generateToken(user)).thenReturn(loginResponseDTO.token());
 
         // When
         ResponseEntity result = authenticationController.login(testData);
 
         // Then
-        assertEquals(ResponseEntity.ok().body("generatedToken"), result);
+        assertEquals(loginResponseDTO, result.getBody());
     }
 
     @Test
