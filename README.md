@@ -32,14 +32,48 @@ git clone git@github.com:UAMCGMP/DSWN1.git
 ## API Endpoints
 A API entrega os seguintes endpoints:
 
-```markdown
-GET / - Retorna a lista com todos os pets cadastrados.
+```
+PETS:
+   
+| Method   | URL                                      | Description                                                      |
+| -------- | ---------------------------------------- | ---------------------------------------------------------------- |
+| `GET`    | `/pets`                                  | Retorna todos os pets registrados em banco.                      |
+| `POST`   | `/pets`                                  | Registra novos pets.                                             |
+| `PUT`    | `/pets`                                  | Altera a informação de um pet.                                   |
+| `DELETE` | `/pets`                                  |  Apaga um pet do banco.                                          |
+```
 
-POST / - Registra novos pets.
+```
+AUTH:
 
-PUT / - Atualiza os dados dos pets.
+| Method   | URL                                      | Description                              |
+| -------- | ---------------------------------------- | ---------------------------------------- |
+| `POST`   | `/auth/login`                            | Autentica um usuario.                    |
+| `POST`   | `/auth/register/adm`                     | Registra novo ADM.                       |
+| `POST`   | `/auth/register/user`                    | Registra novo usuario.                   |  
 
-DELETE / - Deleta um pet do banco.
+Payload (para todos os endpoints):
+{
+    "login": "user",
+    "password": "password"
+}
+```
+
+```
+ADOPTION APLICATION:
+
+| Method   | URL                                      | Description                              |
+| -------- | ---------------------------------------- | ---------------------------------------- |
+| `POST`   | `/adoptionApplication`                   | Registra uma solicitação de adoção       | 
+
+Payload:
+{
+    "nomeUsuario": "nomeUsuario",
+    "emailUsuario": "emaiUsuario",
+    "telefoneUsuario": "telefoneUsuario",
+    "idPet": "petData.id",
+    "nomeDoPet": "petData.name"
+}
 ```
 
 ## Database
