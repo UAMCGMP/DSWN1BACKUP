@@ -28,6 +28,13 @@ public class Pet {
     public Pet(PetDTO petDTO){
         this.name = petDTO.name();
         this.bio = petDTO.bio();
+        this.age = petDTO.age();
+        this.size = petDTO.size();
+        this.weight=petDTO.weight();
+        this.gender = petDTO.gender();
+        this.vaccinated = petDTO.vaccinated();
+        this.castration = petDTO.castration();
+        this.photourl = petDTO.photourl();
     }
 
 }
