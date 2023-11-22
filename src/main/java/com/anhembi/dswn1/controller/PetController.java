@@ -36,7 +36,6 @@ public class PetController {
     @PostMapping
     public ResponseEntity registerPet(@RequestBody PetDTO petDTO){
         Pet pet = new Pet(petDTO);
-        System.out.println(petDTO);
         repository.save(pet);
         return ResponseEntity.ok().build();
     }
@@ -48,7 +47,14 @@ public class PetController {
         if(optionalPet.isPresent()){
             Pet pet = optionalPet.get();
             pet.setName(petDTO.name());
+            pet.setAge(petDTO.age());
+            pet.setSize(petDTO.size());
+            pet.setWeight(petDTO.weight());
             pet.setBio(petDTO.bio());
+            pet.setGender(petDTO.gender());
+            pet.setVaccinated(petDTO.vaccinated());
+            pet.setCastration(petDTO.castration());
+            pet.setPhotourl(petDTO.photourl());
             repository.save(pet);
             return ResponseEntity.ok(pet);
         }else {
