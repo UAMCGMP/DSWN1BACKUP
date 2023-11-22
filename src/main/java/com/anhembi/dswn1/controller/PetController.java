@@ -36,6 +36,9 @@ public class PetController {
     @PostMapping
     public ResponseEntity registerPet(@RequestBody PetDTO petDTO){
         Pet pet = new Pet(petDTO);
+        if (repository.findAll().size() == 10){
+            return ResponseEntity.badRequest().build();
+        }
         repository.save(pet);
         return ResponseEntity.ok().build();
     }
